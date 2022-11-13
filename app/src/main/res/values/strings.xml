@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">My Power App</string>
     <string name="city_name">St. Paul, MN</string>
-    <string name="current_temp">72°</string>
     <string name="current_feel">Feels like 78°</string>
+    <string name="feels_like_temp">Feels like %d°</string>
+    <string name="humidity">Humidity: %d%%</string>
+    <string name="pressure">Pressure: %dhPa</string>
     <string name="current_low">Low 65°</string>
     <string name="current_high">High 80°</string>
     <string name="current_humidity">Humidity 100%</string>
@@ -12,4 +14,6 @@
     <string name="low_temp">Low: %d°</string>
     <string name="sunrise">Sunrise: %s</string>
     <string name="sunset">Sunset: %s</string>
+    <string name="temperature">%s°</string>
+    <string name="date">%s</string>
 </resources>
