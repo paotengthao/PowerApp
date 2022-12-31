@@ -11,6 +11,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,14 +48,29 @@ val forecastData = (0 until 16).map {
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ForecastScreen(
-    viewModel: ForecastViewModel = hiltViewModel(),
+    latitudeLongitude: LatitudeLongitude?,
+    forecastViewModel: ForecastViewModel = hiltViewModel(),
 ) {
+    val state by forecastViewModel.forecast.collectAsState(null)
+
+    if (latitudeLongitude != null) {
+        LaunchedEffect(Unit) {
+            forecastViewModel.fetchForecastData(latitudeLongitude)
+        }
+    } else {
+        LaunchedEffect(Unit) {
+            forecastViewModel.fetchForecast()
+        }
+    }
+
     Scaffold(
         topBar = { AppBar(title = stringResource(id = R.string.forecast)) }
     ) {
-        LazyColumn {
-            items(items = forecastListData) { item: ForecastList ->
-                ForecastRow(forecasts = item)
+        state?.let {
+            LazyColumn {
+                items(items = forecastListData) { item: ForecastList ->
+                    ForecastRow(forecasts = item)
+                }
             }
         }
     }

@@ -14,11 +14,28 @@ interface OpenWeatherMapApi {
         @Query("units") units: String = "imperial"
     ) : CurrentConditions
 
+    @GET("data/2.5/weather")
+    suspend fun getCurrentConditions(
+        @Query("lat") latitude: Float,
+        @Query("lon") longitude: Float,
+        @Query("appid") apiKey: String = "65fa8d2cb08ee51a7c1f31ffff2df47a",
+        @Query("units") units: String = "imperial",
+    ) : CurrentConditions
+
     @GET("data/2.5/forecast/daily")
     suspend fun getForecastScreen(
         @Query("zip") zip: String,
         @Query("appid") apiKey: String = "65fa8d2cb08ee51a7c1f31ffff2df47a",
-        @Query("cnt") cnt: Int = 16,
+        @Query("cnt") count: Int = 16,
+        @Query("units") units: String = "imperial"
+    ) : ForecastsScreen
+
+    @GET("data/2.5/forecast/daily")
+    suspend fun getForecastScreen(
+        @Query("lat") latitude: Float,
+        @Query("lon") longitude: Float,
+        @Query("appid") apiKey: String = "65fa8d2cb08ee51a7c1f31ffff2df47a",
+        @Query("cnt") count: Int = 16,
         @Query("units") units: String = "imperial"
     ) : ForecastsScreen
 }
